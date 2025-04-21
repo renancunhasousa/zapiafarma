@@ -6,14 +6,15 @@ async function handleLogin(event) {
     const telefone = document.getElementById('telefone').value;
     
     try {
-        const baserowUrl = `https://api.baserow.io/api/database/rows/table/${process.env.BASEROW_TABLE_ID}/`;
+        const baserowUrl = 'https://api.baserow.io/api/database/rows/table/512004/';
         
         // Verifica se o usuário já existe
         const checkResponse = await fetch(`${baserowUrl}?user_field_names=true&filter__field_email__equal=${email}`, {
             method: 'GET',
             headers: {
-                'Authorization': `Token ${process.env.BASEROW_TOKEN}`,
-                'Content-Type': 'application/json'
+                'Authorization': 'Token lGwDUVu3xSXdIC116oQR9uMKjcjWinra',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             }
         });
 
@@ -32,8 +33,9 @@ async function handleLogin(event) {
             const response = await fetch(`${baserowUrl}?user_field_names=true`, {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Token ${process.env.BASEROW_TOKEN}`,
-                    'Content-Type': 'application/json'
+                    'Authorization': 'Token lGwDUVu3xSXdIC116oQR9uMKjcjWinra',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
                 },
                 body: JSON.stringify(baserowData)
             });
