@@ -1,0 +1,305 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f0f0f0;
+}
+
+.chat-container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(21, 148, 195, 0.1);
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #1594c3;
+    border-radius: 15px 15px 0 0;
+    border-bottom: 2px solid #43daf7;
+}
+
+.chat-header img {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    object-fit: contain;
+}
+
+.chat-header h1 {
+    color: white;
+    font-size: 1.4em;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    position: relative;
+}
+
+/* Adicionar a marca d'água */
+.chat-messages::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    background-image: url('assets/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.message {
+    margin-bottom: 25px;
+    padding: 20px;
+    border-radius: 20px;
+    max-width: 70%;
+    font-size: 0.95em;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.user-message {
+    background-color: #1594c3;
+    color: white;
+    margin-left: auto;
+    margin-right: 75px;
+    border-radius: 20px 20px 0 20px;
+}
+
+.user-message::before {
+    content: '';
+    position: absolute;
+    right: -15px;
+    bottom: 0;
+    width: 15px;
+    height: 20px;
+    background-color: #1594c3;
+    clip-path: polygon(0 0, 0% 100%, 100% 100%);
+}
+
+.user-message::after {
+    content: '';
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: #80847c;
+    right: -75px;
+    bottom: 0;
+    box-shadow: 0 0 0 4px rgba(128, 132, 124, 0.2),
+                0 2px 5px rgba(0,0,0,0.1);
+}
+
+.ai-message {
+    background-color: white;
+    color: #245f82;
+    margin-right: auto;
+    margin-left: 75px;
+    border-radius: 20px 20px 20px 0;
+}
+
+.ai-message::before {
+    content: '';
+    position: absolute;
+    left: -15px;
+    bottom: 0;
+    width: 15px;
+    height: 20px;
+    background-color: white;
+    clip-path: polygon(0 100%, 100% 100%, 100% 0);
+}
+
+.ai-message::after {
+    content: '';
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-image: url('assets/zapiaANVISA.png');
+    background-size: cover;
+    background-position: center;
+    left: -75px;
+    bottom: 0;
+    box-shadow: 0 0 0 4px rgba(67, 218, 247, 0.2),
+                0 2px 5px rgba(0,0,0,0.1);
+}
+
+.chat-input {
+    padding: 20px;
+    border-top: 2px solid #e9ecef;
+    display: flex;
+    gap: 10px;
+    background-color: white;
+    border-radius: 0 0 15px 15px;
+}
+
+input {
+    flex-grow: 1;
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    outline: none;
+    background-color: white;
+    color: #245f82;
+    font-family: 'Montserrat', sans-serif;
+}
+
+input:focus {
+    border-color: #43daf7;
+}
+
+input::placeholder {
+    color: #80847c;
+}
+
+button {
+    padding: 12px 25px;
+    background-color: #1594c3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+button:hover {
+    background-color: #43daf7;
+    box-shadow: 0 0 10px rgba(67, 218, 247, 0.3);
+}
+
+/* Estilização da barra de rolagem */
+.chat-messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: #f8f9fa;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #1594c3;
+    border-radius: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #43daf7;
+}
+
+.login-container {
+    max-width: 500px;
+    margin: 20px auto 40px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(21, 148, 195, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-header {
+    padding: 20px;
+    background-color: #1594c3;
+    border-radius: 15px 15px 0 0;
+    border-bottom: 2px solid #43daf7;
+    text-align: center;
+}
+
+.login-header h1 {
+    color: white;
+    font-size: 1.4em;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.login-form {
+    padding: 30px;
+    background-color: #f8f9fa;
+    position: relative;
+}
+
+/* Remover o background com logo */
+.login-form::before {
+    display: none;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #245f82;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    outline: none;
+    background-color: white;
+    color: #245f82;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    border-color: #43daf7;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    background-color: #1594c3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    z-index: 1;
+}
+
+.login-form button:hover {
+    background-color: #43daf7;
+    box-shadow: 0 0 10px rgba(67, 218, 247, 0.3);
+}
+
+/* Adicionar estilos para o logo */
+.logo-container {
+    text-align: center;
+    margin: 40px auto 20px;
+    max-width: 500px;
+}
+
+.login-logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+} 
