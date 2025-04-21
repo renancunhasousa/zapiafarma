@@ -13,13 +13,11 @@ async function sendMessage() {
     const message = input.value.trim();
     
     if (message) {
-        // Recupera os dados do usuário do localStorage
         const userData = JSON.parse(localStorage.getItem('userData') || '{}');
         
         addMessage(message, 'user-message');
         
         try {
-            // Prepara os dados para enviar
             const data = {
                 message: message,
                 user: {
@@ -27,30 +25,28 @@ async function sendMessage() {
                     email: userData.email,
                     phone: userData.telefone
                 },
-                timestamp: new Date().toISOString()  // Adicionando timestamp
+                timestamp: new Date().toISOString()
             };
 
-            console.log('Enviando dados:', data); // Log para debug
+            console.log('Enviando dados:', data);
 
-            // Faz a requisição para o webhook
-            const response = await fetch('https://bot.zapiabr.com.br/webhook-test/zapiaFarma', {
+            // Usando nossa própria API como proxy
+            const response = await fetch('/api/webhook', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
             });
 
-            console.log('Status da resposta:', response.status); // Log para debug
+            console.log('Status da resposta:', response.status);
 
             if (!response.ok) {
                 throw new Error(`Erro na resposta da API: ${response.status}`);
             }
 
             const responseData = await response.json();
-            console.log('Resposta recebida:', responseData); // Log para debug
+            console.log('Resposta recebida:', responseData);
 
             addMessage(responseData.message || responseData.response || 'Desculpe, não entendi sua mensagem.', 'ai-message');
         } catch (error) {
