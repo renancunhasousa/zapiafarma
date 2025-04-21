@@ -6,43 +6,16 @@ async function handleLogin(event) {
     const telefone = document.getElementById('telefone').value;
     
     try {
-        const baserowUrl = 'https://api.baserow.io/api/database/rows/table/512004/';
-        
-        // Verifica se o usuário já existe
-        const checkResponse = await fetch(`${baserowUrl}?user_field_names=true&filter__field_email__equal=${email}`, {
-            method: 'GET',
+        const response = await fetch('/api/register', {
+            method: 'POST',
             headers: {
-                'Authorization': 'Token lGwDUVu3xSXdIC116oQR9uMKjcjWinra',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            }
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nome, email, telefone })
         });
 
-        const existingData = await checkResponse.json();
-
-        if (!existingData.results || existingData.results.length === 0) {
-            const baserowData = {
-                fields: {
-                    'Name': nome,
-                    'email': email,
-                    'phone': telefone,
-                    'Data de Cadastro': new Date().toISOString()
-                }
-            };
-
-            const response = await fetch(`${baserowUrl}?user_field_names=true`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Token lGwDUVu3xSXdIC116oQR9uMKjcjWinra',
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
-                },
-                body: JSON.stringify(baserowData)
-            });
-
-            if (!response.ok) {
-                throw new Error('Erro ao registrar usuário');
-            }
+        if (!response.ok) {
+            throw new Error('Erro ao registrar usuário');
         }
 
         localStorage.setItem('userData', JSON.stringify({
