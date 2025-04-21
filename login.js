@@ -6,20 +6,16 @@ async function handleLogin(event) {
     const telefone = document.getElementById('telefone').value;
     
     try {
-        // Adicionando proxy para desenvolvimento local
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-        const baserowUrl = 'https://api.baserow.io/api/database/rows/table/512004/';
+        const baserowUrl = `https://api.baserow.io/api/database/rows/table/${process.env.BASEROW_TABLE_ID}/`;
         
         // Verifica se o usuário já existe
-        const checkResponse = await fetch(`${proxyUrl}${baserowUrl}?user_field_names=true&filter__field_email__equal=${email}`, {
+        const checkResponse = await fetch(`${baserowUrl}?user_field_names=true&filter__field_email__equal=${email}`, {
             method: 'GET',
             headers: {
-                'Authorization': 'Token lGwDUVu3xSXdIC116oQR9uMKjcjWinra',
-                'Origin': 'http://localhost:8000'
+                'Authorization': `Token ${process.env.BASEROW_TOKEN}`,
+                'Content-Type': 'application/json'
             }
         });
-
-        console.log('Resposta da verificação:', await checkResponse.clone().json());
 
         const existingData = await checkResponse.json();
 
@@ -33,19 +29,14 @@ async function handleLogin(event) {
                 }
             };
 
-            console.log('Enviando dados:', baserowData);
-
-            const response = await fetch(`${proxyUrl}${baserowUrl}?user_field_names=true`, {
+            const response = await fetch(`${baserowUrl}?user_field_names=true`, {
                 method: 'POST',
                 headers: {
-                    'Authorization': 'Token lGwDUVu3xSXdIC116oQR9uMKjcjWinra',
-                    'Content-Type': 'application/json',
-                    'Origin': 'http://localhost:8000'
+                    'Authorization': `Token ${process.env.BASEROW_TOKEN}`,
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(baserowData)
             });
-
-            console.log('Resposta do cadastro:', await response.clone().json());
 
             if (!response.ok) {
                 throw new Error('Erro ao registrar usuário');
@@ -58,7 +49,6 @@ async function handleLogin(event) {
             telefone
         }));
 
-        // Redireciona para a página do chat
         window.location.href = 'chat.html';
         
     } catch (error) {
