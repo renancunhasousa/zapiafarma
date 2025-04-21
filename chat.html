@@ -4,18 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Zapia</title>
-    <script>
-        // Verifica se está logado
-        const userData = localStorage.getItem('userData');
-        if (!userData) {
-            // Se não estiver logado, redireciona para login
-            window.location.href = 'index.html';
-        }
-    </script>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <script>
+        // Verificação imediata antes de qualquer renderização
+        (function checkAuth() {
+            const userData = localStorage.getItem('userData');
+            if (!userData) {
+                window.location.href = '/';
+                return;
+            }
+            
+            // Verifica se tem todos os campos necessários
+            const user = JSON.parse(userData);
+            if (!user.nome || !user.email || !user.telefone) {
+                localStorage.removeItem('userData');
+                window.location.href = '/';
+                return;
+            }
+        })();
+    </script>
+
     <div class="chat-container">
         <div class="chat-header">
             <h1>Zapia assistente virtual regulatório</h1>

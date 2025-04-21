@@ -1,6 +1,11 @@
 // Adicionar mensagem inicial quando a página carregar
 window.onload = function() {
-    addMessage('Olá! Eu sou o assistente virtual da ANVISA. Como posso ajudar você hoje?', 'ai-message');
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData) {
+        addMessage('Olá ' + userData.nome + '! Eu sou o assistente virtual da Zapia. Como posso ajudar você hoje?', 'ai-message');
+    } else {
+        addMessage('Olá! Eu sou o assistente virtual da Zapia. Como posso ajudar você hoje?', 'ai-message');
+    }
 }
 
 async function sendMessage() {
@@ -8,7 +13,7 @@ async function sendMessage() {
     const message = input.value.trim();
     
     if (message) {
-        // Recupera os dados do usuário
+        // Recupera os dados do usuário do localStorage
         const userData = JSON.parse(localStorage.getItem('userData') || '{}');
         
         addMessage(message, 'user-message');
@@ -18,9 +23,9 @@ async function sendMessage() {
             const data = {
                 message: message,
                 user: {
-                    nome: userData.nome,
+                    name: userData.nome,
                     email: userData.email,
-                    telefone: userData.telefone
+                    phone: userData.telefone
                 }
             };
 
