@@ -26,23 +26,32 @@ async function sendMessage() {
                     name: userData.nome,
                     email: userData.email,
                     phone: userData.telefone
-                }
+                },
+                timestamp: new Date().toISOString()  // Adicionando timestamp
             };
+
+            console.log('Enviando dados:', data); // Log para debug
 
             // Faz a requisição para o webhook
             const response = await fetch('http://bot.zapiabr.com.br/webhook-test/zapiaFarma', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
                 },
                 body: JSON.stringify(data)
             });
 
+            console.log('Status da resposta:', response.status); // Log para debug
+
             if (!response.ok) {
-                throw new Error('Erro na resposta da API');
+                throw new Error(`Erro na resposta da API: ${response.status}`);
             }
 
             const responseData = await response.json();
+            console.log('Resposta recebida:', responseData); // Log para debug
+
             addMessage(responseData.message || responseData.response || 'Desculpe, não entendi sua mensagem.', 'ai-message');
         } catch (error) {
             console.error('Erro ao enviar mensagem:', error);
