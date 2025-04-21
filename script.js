@@ -33,7 +33,7 @@ async function sendMessage() {
             console.log('Enviando dados:', data); // Log para debug
 
             // Faz a requisição para o webhook
-            const response = await fetch('http://bot.zapiabr.com.br/webhook-test/zapiaFarma', {
+            const response = await fetch('https://bot.zapiabr.com.br/webhook-test/zapiaFarma', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
