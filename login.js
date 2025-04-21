@@ -58,7 +58,8 @@ async function handleLogin(event) {
             telefone
         }));
 
-        window.location.href = 'index.html';
+        // Redireciona para a página do chat
+        window.location.href = 'chat.html';
         
     } catch (error) {
         console.error('Erro ao processar dados:', error);
